@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Counter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <p class="point" title="このポップアップを消す">
+        ページをリロードすると、すべてのカウンターが削除されます<br>
+        2本指でタップすると誤作動を起こす可能性があります
+    </p>
+    <p class="body_ttl">Multi Counter</p>
+    <a href="#"><img src="img/fogup.png" alt="" class="fogup"></a>
+
+    <main>
+        <div class="container">
+            <p class="ttl">Title</p>
+            <p class="count">0</p>
+            <p class="countstop">0</p>
+
+            <div class="count_custom">
+                <p class="count_custom_ttl">タイトルを変更</p>
+                <input type="text" class="custom_ttl">
+                <button class="custom_ttl_submit">決定</button>
+            </div>
+        </div>
+        <div class="container">
+            <p class="ttl">Title</p>
+            <p class="count">0</p>
+            <p class="countstop">0</p>
+
+            <div class="count_custom">
+                <p class="count_custom_ttl">タイトルを変更</p>
+                <input type="text" class="custom_ttl" placeholder="長押しで入力">
+                <button class="custom_ttl_submit">決定</button>
+            </div>
+        </div>
+
+        <div class="add_container" title="カウンターを追加(Add Counter)">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <line x1="12" x2="12" y1="19" y2="5"/>
+                <line stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="5" x2="19" y1="12" y2="12"/>
+            </svg>
+        </div>
+    </main>
+
+    <div class="toggle toggle_plus" title="増or減(Increase or Decrease)">
+        <path class="thumb"></path>
+    </div>
+    
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        //れでぃー？ ごー！！！
+        $(document).ready(function() {
+
+            //カウンター +-
+            $(document).on('click', '.container', function() {
+                var count = $(this).children('.count');
+                var countValue = parseInt(count.text());
+
+                if ($('.toggle_plus').length === 1) {
+                    count.text(countValue + 1);
+
+                    if (countValue === 1000 - 1) {
+                        var stop = $(this).children('.countstop');
+                        var stopValue = parseInt(stop.text());
+                        stop.text(stopValue + 1000);
+
+                        var countValue = 0;
+                        count.text(countValue);
+                    }
+                } else {
+                    count.text(countValue - 1);
+
+                    if (countValue === -1000 + 1) {
+                        var stop = $(this).children('.countstop');
+                        var stopValue = parseInt(stop.text());
+                        stop.text(stopValue - 1000);
+
+                        var countValue = 0;
+                        count.text(countValue);
+                    }
+                }
+            });
+            
+            // 長押し・削除
+            $(document).on('mousedown touchstart', '.container', function() {
+                var container = $(this);
+                pressTimer = window.setTimeout(function() {
+                    $('.count_custom').removeClass('active');
+                    $(container).children('.count_custom').children('.custom_ttl').val('');
+                    $(container).children('.count_custom').addClass('active');
+                    $(container).children('.count_custom').addClass('remove');
+                    $(container).children('.count_custom').children('.custom_ttl').focus();
+                }, 500);
+                removeTimer = window.setTimeout(function() {
+                    $(container).remove()
+                }, 2500);
+            }).on('mouseup touchend', function() {
+                clearTimeout(pressTimer);
+                clearTimeout(removeTimer);
+                $('*').removeClass('remove');
+            });
+
+            //タイトル変更
+            $(document).on('click', '.custom_ttl_submit', function() {
+                var customEnter = $(this).prev().val();
+                $(this).parent().siblings('.ttl').text(customEnter);
+                $('.count_custom').removeClass('active');
+                $(this).prev().val('');
+            })
+
+            //カウンター追加
+            $('.add_container').click(function() {
+                var addHTML = '<div class="container"><p class="ttl">Title</p><p class="count">0</p><p class="countstop">0</p><div class="count_custom"><p class="count_custom_ttl">タイトルを変更</p><input type="text" class="custom_ttl"><button class="custom_ttl_submit">決定</button></div></div>';
+                $(addHTML).insertBefore(this);
+            });
+
+            //トグルボタン
+            $('.toggle').on('click', function() {
+                $(this).toggleClass('toggle_plus');
+            })
+
+
+            $('.point').click(function() {
+                $(this).remove();
+            })
+
+            //ダブルタップ禁止令
+            document.addEventListener('touchend', function (e) {
+                e.preventDefault();
+                $(e.target).trigger('click');
+            }, false);
+        });
+    </script>
+</body>
+</html>

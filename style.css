@@ -1,0 +1,285 @@
+@import url("https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&family=M+PLUS+1p:wght@700&family=Reddit+Mono:wght@700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: #000;
+  overflow: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  touch-action: manipulation;
+}
+
+html {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  background-color: #fff;
+}
+
+body {
+  width: 100vw;
+  background-color: #fff;
+}
+body::-webkit-scrollbar {
+  width: 7px;
+}
+body::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-inline: 1px solid transparent;
+  border-block: 2px solid transparent;
+  border-radius: 50px;
+  background-clip: padding-box;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #222;
+}
+
+p.body_ttl {
+  margin-top: 0.5rem;
+  font-size: 3.5rem;
+  font-weight: 500;
+  text-align: center;
+  font-family: "jaro", sans-serif;
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  transform: scaleX(1.3);
+}
+
+img.fogup {
+  display: block;
+  height: 30px;
+  margin-inline: auto;
+}
+
+p.point {
+  display: block;
+  font-size: 0.8rem;
+  text-align: center;
+  font-family: "m plus 1p", sans-serif;
+  color: #fff;
+  width: 100%;
+  line-height: 1.2em;
+  padding-block: 5px;
+  background-color: #000;
+  cursor: pointer;
+}
+
+main {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+main .container {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 165px;
+  aspect-ratio: 1/1;
+  margin: 15px;
+  background-color: #fff;
+  box-shadow: 0 0 20px -10px #000;
+  border-radius: 10px;
+  cursor: pointer;
+  animation: appear_container 0.3s both;
+}
+@keyframes appear_container {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+main .container p.ttl {
+  position: absolute;
+  top: 0;
+  font-size: 1.2rem;
+  text-align: center;
+  font-family: "m plus 1p", sans-serif;
+  font-weight: 600;
+}
+main .container p.count {
+  font-size: 4.5rem;
+  font-family: "reddit mono", sans-serif;
+  translate: 0 8px;
+}
+main .container p.countstop {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  font-size: 1.5rem;
+  font-family: "reddit mono", sans-serif;
+  color: #777;
+}
+main .container .count_custom {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  place-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6666666667);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 98;
+  transition: all 0.2s ease-out;
+  -webkit-user-select: all !important;
+     -moz-user-select: all !important;
+          user-select: all !important;
+}
+main .container .count_custom.active {
+  opacity: 1;
+  pointer-events: all;
+}
+main .container .count_custom.active.remove::after {
+  translate: 0;
+  transition: all 2s linear;
+}
+main .container .count_custom.active:not(.remove)::after {
+  translate: -100%;
+  transition: all 1s cubic-bezier(0, 1, 0.5, 1);
+}
+main .container .count_custom p.count_custom_ttl {
+  color: #fff;
+  font-family: "m plus 1p", sans-serif;
+  text-align: center;
+  height: 25px;
+}
+main .container .count_custom input.custom_ttl {
+  width: 90%;
+  height: 30px;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  padding-inline: 0.5em;
+  font-size: 1rem;
+  box-sizing: border-box;
+  font-family: "m plus 1p", sans-serif;
+  margin-block: 15px;
+}
+main .container .count_custom button.custom_ttl_submit {
+  height: 25px;
+  aspect-ratio: 5/2;
+  background-color: #379e4a;
+  color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: "m plus 1p", sans-serif;
+  border-radius: 50px;
+}
+main .container .count_custom::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #f00;
+  translate: -100%;
+}
+main .add_container {
+  display: grid;
+  place-items: center;
+  width: 100px;
+  aspect-ratio: 1/1;
+  margin: 47.5px;
+  background-color: #f8f8f8;
+  box-shadow: 0 0 20px -10px #000;
+  border-radius: 10px;
+  cursor: pointer;
+  animation: appear_container 0.3s both;
+}
+main .add_container svg {
+  width: 50px;
+  stroke: #444;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+main .add_container.translate {
+  animation: add_translate 0.3s both ease-out;
+}
+@keyframes add_translate {
+  0% {
+    translate: 0;
+  }
+  100% {
+    translate: 150px;
+  }
+}
+
+.toggle {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: #ccc;
+  height: 40px;
+  aspect-ratio: 2/1;
+  border-radius: 100px;
+  z-index: 99;
+  cursor: pointer;
+  box-shadow: 0 0 10px #fff;
+  transition: all 0.2s ease-out;
+}
+.toggle path.thumb {
+  position: relative;
+  display: block;
+  width: 32px;
+  aspect-ratio: 1/1;
+  margin: 4px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: all 0.2s ease-out;
+}
+.toggle path.thumb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 2px;
+  height: 2px;
+  background-color: #000;
+  border-radius: 10px;
+  transition: all 0.2s ease-out;
+}
+.toggle path.thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 15px;
+  height: 2px;
+  background-color: #000;
+  border-radius: 10px;
+}
+.toggle.toggle_plus {
+  background-color: #4bd865;
+}
+.toggle.toggle_plus path.thumb {
+  translate: 40px;
+}
+.toggle.toggle_plus path.thumb::before {
+  height: 15px;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    width: calc(50% - 50px) !important;
+    margin: 25px !important;
+  }
+  .add_container {
+    width: calc(50% - 110px) !important;
+    margin: 55px !important;
+  }
+}/*# sourceMappingURL=style.css.map */
