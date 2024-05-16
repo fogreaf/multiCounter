@@ -56,6 +56,7 @@ p.body_ttl {
 svg {
   display: block;
   height: 30px;
+  fill: #000;
   margin-inline: auto;
 }
 
